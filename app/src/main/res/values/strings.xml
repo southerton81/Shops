@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Music Shops</string>
+    <string name="shops_act_name">Music shops list</string>
+    <string name="instruments_act_name">Instruments available</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="no_music_shops_data">Loading&#8230;</string>
+    <string name="call">CALL</string>
+    <string name="url">WEB</string>
+    <string name="email">EMAIL</string>
+    <string name="me">ME</string>
+    <string name="instrumentType">Instrument type:\u0020</string>
+    <string name="instrumentBrand">Brand:\u0020</string>
+    <string name="instrumentModel">Model:\u0020</string>
+    <string name="instrumentPrice">Price:\u0020</string>
+    <string name="instrumentQuantity">Quantity:\u0020</string>
+    <string name="dialPhone">Dial phone number</string>
+    <string name="sendMail">Send email</string>
+    <string name="no_loc">Location not available</string>
+    <string name="shop_loc">SHOP</string>
+    <string name="key_show_gps_location">key</string>
+    <string name="action_refresh">Refresh</string>
+</resources>

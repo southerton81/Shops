@@ -24,6 +24,7 @@ import dmitriy.com.musicshop.db.ShopsContentProvider;
 import dmitriy.com.musicshop.loaders.LoadersRoster;
 import dmitriy.com.musicshop.models.MusicShopModel;
 import dmitriy.com.musicshop.restclients.MusicShopsObservable;
+import rx.Notification;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -145,18 +146,17 @@ public class ListFragment extends android.support.v4.app.ListFragment
 
     private void obtainDataFromService() {
         mSubscription = MusicShopsObservable.getInstance().getMusicShopsObservable()
-                .map(new Func1<List<MusicShopModel>, Void>() {
+                .doOnNext(new Action1<List<MusicShopModel>>() {
                     @Override
-                    public Void call(List<MusicShopModel> models) {
-                        cacheShops(models, getActivity());
-                        return null;
+                    public void call(List<MusicShopModel> musicShopModels) {
+                        cacheShops(musicShopModels, getActivity());
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new Action1<Void>() {
+                        new Action1<List<MusicShopModel>>() {
                             @Override
-                            public void call(Void v) {
+                            public void call(List<MusicShopModel> m) {
                                 setListAdapter(mCursorAdapter);
                                 getLoaderManager().restartLoader(LoadersRoster.SHOPSLIST_LOADER_ID, null,
                                         ListFragment.this);

@@ -37,6 +37,7 @@ import dmitriy.com.musicshop.db.InstrumentsTable;
 import dmitriy.com.musicshop.db.ShopsContentProvider;
 import dmitriy.com.musicshop.loaders.LoadersRoster;
 import dmitriy.com.musicshop.models.InstrumentModel;
+import dmitriy.com.musicshop.models.MusicShopModel;
 import dmitriy.com.musicshop.restclients.MusicShopsObservable;
 import dmitriy.com.musicshop.utils.LocationProvider;
 import dmitriy.com.musicshop.utils.Utils;
@@ -203,18 +204,17 @@ public class DetailsFragment extends android.support.v4.app.ListFragment
 
     private void obtainDataFromService() {
         mSubscription = MusicShopsObservable.getInstance().getInstrumentsObservable(shopId)
-                .map(new Func1<List<InstrumentModel>, Void>() {
+                .doOnNext(new Action1<List<InstrumentModel>>() {
                     @Override
-                    public Void call(List<InstrumentModel> models) {
+                    public void call(List<InstrumentModel> models) {
                         cacheInstruments(models, shopId, getActivity());
-                        return null;
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new Action1<Void>() {
+                        new Action1<List<InstrumentModel>>() {
                             @Override
-                            public void call(Void v) {
+                            public void call(List<InstrumentModel> m) {
                                 setListAdapter(mCursorAdapter);
                                 getLoaderManager().restartLoader(
                                         LoadersRoster.SHOPINSTRUMENTS_LOADER_ID,
